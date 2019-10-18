@@ -1,6 +1,8 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/lab14', (err) => {
+const atlasUrl = `mongodb+srv://asadalikanwal:${process.env.DB_PASSWORD}@cluster-oaqxp.gcp.mongodb.net/dictionary?retryWrites=true&w=majority`
+mongoose.connect(atlasUrl, (err) => {
     if(!err){
         console.log("Database is connected successfully");
     } else {
