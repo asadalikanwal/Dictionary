@@ -4,7 +4,6 @@ const atlasUrl = `mongodb+srv://asadalikanwal:asadalikanwal@cluster-oaqxp.gcp.mo
 mongoose.connect(atlasUrl, (err) => {
     if(!err){
         console.log("Database is connected successfully");
-        console.log("process.env.DB_PASSWORD", process.env.DB_PASSWORD);
     } else {
         console.log("Database failed to connect", err);
     }
