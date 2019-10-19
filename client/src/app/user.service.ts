@@ -15,4 +15,8 @@ export class UserService {
   saveUser(obj){
     return this.http.post(`http://localhost:3000/users`, obj);
   }
+
+  login(obj){
+    return this.http.post('', obj);
+  }
 }
