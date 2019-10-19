@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import{User} from '@/_model'
 @Injectable({
   providedIn: 'root'
 })
@@ -12,7 +12,10 @@ export class UserService {
     return this.http.get<{result: boolean}>(`http://localhost:3000/users/${email}`);
   }
 
-  saveUser(obj){
-    return this.http.post(`http://localhost:3000/users`, obj);
-  }
+  // saveUser(obj){
+  //   return this.http.post(`http://localhost:3000/users`, obj);
+  // }
+  register(user: User) {
+    return this.http.post(`${config.apiUrl}/users/register`, user);
+}
 }
