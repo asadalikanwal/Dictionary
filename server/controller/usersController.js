@@ -1,16 +1,25 @@
 const router = require('express').Router();
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const User = require('../models/users');
+const {jwtVerify} = require('../_helpers/jwt');
 
+router.get('/', async (req, res, next) => {
 
-router.get('/', (req, res, next) => {
-    User.find((err, docs) => {
-        if (!err) {
-            res.send(docs);
-        } else {
-            return next("Error: Users not found");
-        }
-    });
+    try {
+        const token = req.cookies.access_token;
+        const decoded = await jwtVerify(token);
+
+        User.find((err, docs) => {
+            if (!err) {
+                res.send(docs);
+            } else {
+                return next("Error: Users not found");
+            }
+        });
+    } catch (e) {
+        return next({'message' : 'User is not authorized'})
+    }
 })
 
 router.get('/:email', (req, res, next) => {
@@ -36,9 +45,13 @@ router.get('/:email', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(req.body.password, salt);
+
     const newUser = new User({
         email: req.body.email,
-        password: req.body.password
+        password: hash
     });
     newUser.save((err, docs) => {
         if (!err) {
@@ -48,5 +61,9 @@ router.post('/', (req, res, next) => {
         }
     });
 })
+
+
+
+
 
 module.exports = router;

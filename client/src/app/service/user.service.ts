@@ -15,7 +15,14 @@ export class UserService {
   // saveUser(obj){
   //   return this.http.post(`http://localhost:3000/users`, obj);
   // }
-  register(user: User) {
-    return this.http.post(`${config.apiUrl}/users/register`, user);
-}
+//   register(user: User) {
+//     return this.http.post(`${config.apiUrl}/users/register`, user);
+// }
+  saveUser(obj){
+    return this.http.post(`http://localhost:3000/users`, obj);
+  }
+
+  login(obj){
+    return this.http.post('', obj);
+  }
 }
