@@ -35,7 +35,7 @@ router.post('/', (req, res, next) => {
                 });
 
                 res.status(200).send({
-                    "message": "Authorization successssssss",
+                    "message": "Authorization success",
                     "token": token
                 })
                 
