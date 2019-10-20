@@ -4,6 +4,7 @@ const saltRounds = 10;
 const User = require("../models/users");
 const { jwtVerify } = require("../_helpers/jwt");
 
+//to get all the active users
 router.get("/", async (req, res, next) => {
   try {
     const token = req.cookies.access_token;
@@ -11,7 +12,9 @@ router.get("/", async (req, res, next) => {
 
     User.find((err, docs) => {
       if (!err) {
-        res.send(docs);
+          if(docs.isActive===1){ res.send(docs);}
+          
+       
       } else {
         return next("Error: Users not found");
       }
@@ -42,7 +45,7 @@ router.get("/:email", (req, res, next) => {
   );
 });
 //to register new member
-router.post("/register", (req, res, next) => {
+router.post("/", (req, res, next) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hash = bcrypt.hashSync(req.body.password, salt);
 
@@ -68,27 +71,31 @@ router.post("/register", (req, res, next) => {
 });
 //deactivating member
 router.delete("/:email", async (req, res, next) => {
-  const userEmail = req.params.email;
-  const user = await User.findById(userEmail);
-
-  if (!user) {
-    throw "user not found";
-  }
-  user.update({ $set: { isActive: 0 } });
+  
+   await User.findOneAndUpdate(
+    { email: req.params.email },
+    { isActive: 0 },
+    { new: true},
+    (err, doc) => {
+        if (!err) {
+            res.send(doc);
+          } else {
+            return next("Error: Database not working");
+          }
+    });
 });
 
 //updating member status after login
-router.put("/", (req, res, next) => {
-  User.update(
-    { email: req.body.email },
-    {
-      $set: {
-        isActive: 1,
-        lastLogin: Date.now()
+router.put("/", async(req, res, next) => {
+ await User.findOneAndUpdate( { email: req.body.email },{isActive: 1, lastLogin: Date.now()},{new:true},(err, doc) => {
+    if (!err) {
+        res.send(doc);
+      } else {
+        return next("Error: Database not working");
       }
-    }
-  );
-  res.json(true);
+})
+    
+
 });
 
 module.exports = router;

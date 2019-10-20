@@ -18,8 +18,14 @@ router.post('/', (req, res, next) => {
 
         if (docs) {
             const passwordMatch = bcrypt.compareSync(req.body.password, docs.password);
+            
             console.log("passwordMatch", passwordMatch);
-            if (passwordMatch) {
+        
+            if (passwordMatch&&docs.isActive!==0) {
+
+                // Update LoginDate and isActive Status
+                console.log("PAssword MAtch");
+                _updateDateStatus(req.body.email);
 
                 const payload = {
                     _id: docs._id,
@@ -51,5 +57,24 @@ router.post('/', (req, res, next) => {
         }
     });
 })
+
+
+// TO Update LoginData and Status
+// Req user ID
+function _updateDateStatus(userEmail){
+    console.log("User Date and status updating...");
+    User.findOneAndUpdate(
+        { email: userEmail },
+        { isActive: 1, lastLogin: Date.now() },
+        { new: true},
+        (err, doc) => {
+            if (!err) {
+                console.log("User Date and status is updated");
+              } else {
+                console.log("User Date and status is not updated", err);
+              }
+        }
+      );
+}
 
 module.exports = router;

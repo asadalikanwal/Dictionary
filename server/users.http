@@ -1,31 +1,32 @@
+
+
+# Get a Active user by email 
+GET http://localhost:3000/api/users/tahmed@mum.edu HTTP/1.1
+
+###
+
+# Get all Active users
+GET http://localhost:3000/api/users HTTP/1.1
+
+
+###
+
+#To add a new user
 POST http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "asadalikanwal@mum.edu",
+     "email": "tahmed@mum.edu",
     "password": "123456"
 }
-
 ###
 
-GET http://localhost:3000/api/users/asadalikanwal@mum.edu HTTP/1.1
-
+#To deactivate user - by making isActive: 0 
+DELETE http://localhost:3000/api/users/asadalikanwal@mum.edu HTTP/1.1
 ###
-
-POST http://localhost:3000/api/users/login HTTP/1.1
+PUT http://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "aakanwal@mum.edu",
-    "password": "123456"
+    "email":"tahmed@mum.edu"
 }
-###
-POST http://localhost:3000/api/register HTTP/1.1
-Content-Type: application/json
-
-{
-     "email": "aakanwal@mum.edu",
-    "password": "123456"
-}
-###
-DELETE http://localhost:3000/api/asadalikanwal@mum.edu HTTP/1.1

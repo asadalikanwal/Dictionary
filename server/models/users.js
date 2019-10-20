@@ -12,7 +12,7 @@ const user = mongoose.model('user', {
     quizScore:Number,
     computationScore:Number,
     quizFrequency:Number,
-    lastLogin:Date
+    lastLogin:Date 
 
 })
 
