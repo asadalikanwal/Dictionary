@@ -1,6 +1,6 @@
 
 # To start a new game
-POST http://localhost:3000/api/games HTTP/1.1
+POST https://localhost:3000/api/games HTTP/1.1
 Content-Type: application/json
 
 {
@@ -31,48 +31,20 @@ Content-Type: application/json
 
 ###
 
-# To find a game
-GET http://localhost:3000/api/games/5dac79d0a55b5e11399b5235 HTTP/1.1
+# To find a game by ID
+GET https://localhost:3000/api/games/5dacda5088ad3620d884111e HTTP/1.1
 
 ###
 
-# To find a game
-POST http://localhost:3000/api/games/5dac79d0a55b5e11399b5235 HTTP/1.1
+# To Update a game by ID
+POST https://localhost:3000/api/games/5dacda5088ad3620d884111e HTTP/1.1
 Content-Type: application/json
 
 {
     "winner": "asadalikanwal@mum.edu",
+    "user1.result": 10,
     "user2": {
-        "result": 10,
+        "result": 5,
         "done": true
     }
-}
-
-
-###
-{
-    "type": 0,
-    "user1": {
-        "email": "asadalikanwal@mum.edu",
-        "result": null,
-        "done": false
-    },
-    "user2": {
-        "email": "asadalikanwal@mum.edu",
-        "result": null,
-        "done": false
-    },
-    "questions": [
-        {
-            "header": "An institution for educating children",
-            "answer": "school",
-            "options": ["home, hospital, school"],
-            "question_result": {
-                "user1": "",
-                "user2": "",
-            }
-
-        }
-    ],
-    "winner": ""
 }
