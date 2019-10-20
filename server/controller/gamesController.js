@@ -9,9 +9,33 @@ router.post('/', (req, res, next) => {
         if(!err) {
             res.send(docs);
         } else {
-            return next 
+            return next({
+                "message": "Problem to connect with DB"
+            })
         }
     })
+})
+
+// Update a game, Need game id as params
+router.post('/:gameid', (req, res, next) => {
+    // const newGame = new Game(req.body);
+    Game.findOneAndUpdate({_id: req.params.gameid}, req.body, {new: true, upsert: true}, (err, doc) => {
+        if(!err) {
+            res.send(doc);
+        } else {
+            return next({
+                "message": "Problem to connect with DB"
+
+            })
+        }
+    })
+    // newGame.save((err, docs) => {
+    //     if(!err) {
+    //         res.send(docs);
+    //     } else {
+    //         return next 
+    //     }
+    // })
 })
 
 // To find a game by gameID

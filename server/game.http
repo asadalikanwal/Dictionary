@@ -32,7 +32,21 @@ Content-Type: application/json
 ###
 
 # To find a game
-GET http://localhost:3000/api/games/5dabe43fa55b5e11399b52212 HTTP/1.1
+GET http://localhost:3000/api/games/5dac79d0a55b5e11399b5235 HTTP/1.1
+
+###
+
+# To find a game
+POST http://localhost:3000/api/games/5dac79d0a55b5e11399b5235 HTTP/1.1
+Content-Type: application/json
+
+{
+    "winner": "asadalikanwal@mum.edu",
+    "user2": {
+        "result": 10,
+        "done": true
+    }
+}
 
 
 ###

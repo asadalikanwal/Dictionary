@@ -1,0 +1,7 @@
+// Search for word (vocabulary)
+GET https://localhost:3000/api/search/school HTTP/1.1
+
+    // need to add the credentials(JWT) to the request.
+
+
+###
