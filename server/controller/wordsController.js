@@ -1,9 +1,8 @@
 const router = require('express').Router();
 const words = require('../models/words');
 const users = require('../models/users');
-var qs = require("querystring");
-var https = require("https");
-//--------------------------------------
+const unirest = require('unirest');
+
 
 router.get('/:vocabulary', async (req, res) => {
     // newWord = new words()
@@ -47,52 +46,29 @@ function localDbSearch(req, res) {
     //     });
 
     console.log('inside local db')
-    return words.findOne(
-        { vocabulary: req.params.vocabulary },
-        { questions: 0 }
-    );
+    return words.findOne({
+        vocabulary: req.params.vocabulary
+    }, {
+        questions: 0
+    });
 }
 
 function onlineWordApiSearch(req, res) {
     console.log('inside online search')
 
-    // curl "" -H 
-
-    var options = {
-        "method": "GET",
-        "hostname": "https://wordsapiv1.p.mashape.com/words/school",
-        "port": null,
-        "path": "/",
-        "headers": {
-            "x-rapidapi-host": "dictionary24.p.rapidapi.com",
-            "x-rapidapi-key": "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33",
-            "content-type": "application/x-www-form-urlencoded",
-            "X-Mashape-Key": "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33"
-        }
-    };
-    console.log('before req ')
-    var req = https.request(options, function (res) {
-        console.log('inside https request 1');
-
-        var chunks = [];
-        console.log('inside https request');
-        res.on("data", function (chunk) {
-            console.log('inside res.Data');
-            chunks.push(chunk);
+    unirest.get("https://wordsapiv1.p.mashape.com/words/school")
+        .header("X-Mashape-Key", "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33")
+        .header("Accept", "application/json")
+        .end(function (result) {
+            console.log("RESULT: ", result.status, result.headers, result.body);
+        })
+        .catch(err => {
+            console.log(err)
         });
 
-        res.on("end", function () {
-            var body = Buffer.concat(chunks);
-            console.log(body.toString());
-        });
-    }).on('error', (e) => {
-        console.error(e);
-    });
-
-    // req.write(qs.stringify({}));
-    // req.end();
-    ///----------------------------------------------------------
-    ///----------------------------------------------------------
+   
+    // /----------------------------------------------------------
+    // /----------------------------------------------------------
     // need to return res
     // fetch(
     //     'https://wordsapiv1.p.mashape.com/words/' + req.params.vocabulary,
@@ -143,8 +119,9 @@ function addToUsersCollectio(req, newWord) {
         vocabulary: newWord.vocabulary,
         priority: 10
     };
-    users.findOne(
-        { _id: req.body.id })
+    users.findOne({
+        _id: req.body.id
+    })
     // to be completed
     // get that user and add the word to his list @userWord
 }
