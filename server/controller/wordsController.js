@@ -57,16 +57,13 @@ function onlineWordApiSearch(req, res) {
     console.log('inside online search')
 
     unirest.get("https://wordsapiv1.p.mashape.com/words/school")
-        .header("X-Mashape-Key", "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33")
+        .header("X-Mashape-Key", process.env.WORD_API_KEY)
         .header("Accept", "application/json")
         .end(function (result) {
             console.log("RESULT: ", result.status, result.headers, result.body);
-        })
-        .catch(err => {
-            console.log(err)
         });
 
-   
+
     // /----------------------------------------------------------
     // /----------------------------------------------------------
     // need to return res
