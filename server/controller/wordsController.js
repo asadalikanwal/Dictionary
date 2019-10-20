@@ -59,12 +59,12 @@ function onlineWordApiSearch(req, res) {
     // curl "" -H 
 
     var options = {
-        "method": "get",
+        "method": "GET",
         "hostname": "https://wordsapiv1.p.mashape.com/words/school",
         "port": null,
         "path": "/",
         "headers": {
-            // "x-rapidapi-host": "https://wordsapiv1.p.mashape.com/words/school",
+            "x-rapidapi-host": "dictionary24.p.rapidapi.com",
             "x-rapidapi-key": "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33",
             "content-type": "application/x-www-form-urlencoded",
             "X-Mashape-Key": "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33"
