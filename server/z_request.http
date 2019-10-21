@@ -1,0 +1,35 @@
+#Add User
+POST https://localhost:3000/api/users HTTP/1.1
+Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
+
+{
+    "email": "shiva@mum.edu",
+    "password": "123456"
+}
+
+###
+
+#Get User by Email/ Email Verification
+GET https://localhost:3000/api/users/asadalikanwal@mum.edu HTTP/1.1
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
+
+###
+
+
+
+#Get all users with access token
+GET https://localhost:3000/api/users HTTP/1.1
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
+###
+
+
+
+# Login
+POST https://localhost:3000/auth HTTP/1.1 
+Content-Type: application/json
+
+{
+    "email": "tahmed@mum.edu",
+    "password": "123456"
+}

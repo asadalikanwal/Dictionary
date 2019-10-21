@@ -2,6 +2,7 @@
 # To start a new game
 POST https://localhost:3000/api/games HTTP/1.1
 Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
 
 {
     "type": 0,
@@ -33,12 +34,14 @@ Content-Type: application/json
 
 # To find a game by ID
 GET https://localhost:3000/api/games/5dacda5088ad3620d884111e HTTP/1.1
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
 
 ###
 
 # To Update a game by ID
 POST https://localhost:3000/api/games/5dacda5088ad3620d884111e HTTP/1.1
 Content-Type: application/json
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjQ0MjUxLCJleHAiOjE1NzE2NDc4NTF9.7-qc4iENG08jygL_Hq3iBheXz8BkKUcuoFc7A2BCYuc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 07:50:51 GMT; HttpOnly
 
 {
     "winner": "asadalikanwal@mum.edu",

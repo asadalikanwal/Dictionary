@@ -8,7 +8,8 @@ const logger = require('morgan');
 const cors = require('cors');
 
 
-
+const checkToken = require('./middlewares/checkToken');
+const verifyToken = require('./middlewares/verifyToken');
 const indexRouter = require('./controller/index');
 const authRouter = require('./controller/auth');
 const usersController = require('./controller/usersController');
@@ -35,9 +36,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/api/users', usersController);
-app.use('/api/games', gamesController);
-app.use('/api/search', wordsController);
+app.use('/api/users', checkToken, verifyToken, usersController);
+app.use('/api/games', checkToken, verifyToken, gamesController);
+app.use('/api/search', checkToken, verifyToken, wordsController);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
