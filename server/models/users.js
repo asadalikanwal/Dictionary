@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const user = mongoose.model('user', {
-    email: {type: String},
+    email: {type: String, unique:true, require:true},
+    fullName: {type: String, require:true},
     password: {type: String },
     isActive:{type: Number},
     words:[{

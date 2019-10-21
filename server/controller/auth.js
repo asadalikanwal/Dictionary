@@ -47,7 +47,7 @@ router.post('/', (req, res, next) => {
                 
             } else {
                 res.status(401).send({
-                    "message": "Authorization failed"
+                    "message": "Email or Password is incorrect"
                 })
             }
         } else {

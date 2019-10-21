@@ -4,7 +4,7 @@ const word = mongoose.model('word', {
     word: String,
     results: [{
         definition: String,
-        partOfSpeach: String,
+        partOfSpeech: String,
         synonyms: [String],
         typeOf: [String],
         hasTypes: [String],
@@ -19,6 +19,8 @@ const word = mongoose.model('word', {
         all: String
     },
     frequency: Number,
+    
+    
     questions: [{
         header: String,
         answer: String,
