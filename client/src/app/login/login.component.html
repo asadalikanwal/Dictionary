@@ -1,0 +1,30 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="form-signin">
+  <div class="text-center mb-4">
+    <br />
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <p>In order to login you need to enter your valid email address and your password.</p>
+    <br />
+  </div>
+
+  <div class="form-group">
+    <!-- <label for="exampleInputEmail1">Email address</label> -->
+    <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" -->
+    <!-- placeholder="Enter email" formControlName="email"> -->
+    <mat-form-field class="full-width" floatLabel="always">
+      <input matInput placeholder="email" formControlName="email">
+    </mat-form-field>
+
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <!-- <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password"
+      formControlName="password"> -->
+    <mat-form-field class="full-width" floatLabel="always">
+      <input matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
+  </div>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!myForm.valid">Login</button>
+  <p class="mt-5 mb-3 text-muted text-center">All rights are <br /> reserved by &copy; DictionaryCo. 2018-2019</p>
+</form>

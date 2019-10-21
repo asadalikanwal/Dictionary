@@ -1,0 +1,7 @@
+// Search for word (vocabulary)
+GET https://localhost:3000/api/search/bottom HTTP/1.1
+Cookie: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjAzY2ExZjExYjg5OTAzMDEiLCJlbWFpbCI6InRhaG1lZEBtdW0uZWR1IiwiaWF0IjoxNTcxNjMyMjg1LCJleHAiOjE1NzE2MzU4ODV9.9ojjFjzWfkqXWR1nA3P3UzpGaxBIZ8_fQOZldLq5fFc; Max-Age=86400; Path=/; Expires=Tue, 22 Oct 2019 04:31:25 GMT; HttpOnly
+    // need to add the credentials(JWT) to the request.
+
+
+###

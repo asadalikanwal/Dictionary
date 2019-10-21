@@ -1,36 +1,59 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  currentUser: string;
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
 
-  set setCurrentUser(val: string){
-    this.currentUser =  val;
+  set setCurrentUser(val: string) {
+    localStorage.setItem('currentUser', val);
+    // this.currentUser =  val;
   }
 
-  get getCurrentUser(){
-    return this.currentUser;
+  get getCurrentUser() {
+    // return this.currentUser;
+    return localStorage.getItem('currentUser');
   }
 
-  constructor(private http: HttpClient) { }
-
-  validateUserByEmail(email){
-    return this.http.get<{result: boolean}>(`http://localhost:3000/api/users/${email}`);
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUser'));
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  saveUser(obj){
-    return this.http.post(`http://localhost:3000/api/users`, obj);
+  validateUserByEmail(email) {
+    return this.http.get<{ result: boolean }>(`https://localhost:3000/api/users/${email}`);
   }
 
-  getAllUsers(){
-    return this.http.get(`http://localhost:3000/api/users`);
+  saveUser(obj) {
+    return this.http.post<{ result: boolean }>(`https://localhost:3000/api/users`, obj);
   }
 
-  login(obj: object){
-    return this.http.post<{token: string}>(`http://localhost:3000/auth`, obj);
+  getAllUsers() {
+    return this.http.get(`https://localhost:3000/api/users`);
+  }
+
+  login(obj: object) {
+    return this.http.post<{ token: string }>(`https://localhost:3000/auth`, obj).pipe(map(user => {
+      // store user details and jwt token in local storage to keep user logged in between page refreshes
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+      return user;
+    }));
+  }
+
+  logout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+  }
+
+  checkUser(obj: object) {
+    return this.http.post<{ token: string }>(`https://localhost:3000/auth`, obj);
   }
 
 

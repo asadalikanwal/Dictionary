@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const word = mongoose.model('word', {
-    vocabulary: String,
-    definitions: [{
+    word: String,
+    results: [{
         definition: String,
         partOfSpeech: String,
         synonyms: [String],
@@ -10,11 +10,6 @@ const word = mongoose.model('word', {
         hasTypes: [String],
         derivation: [String],
         example: [String],
-        questions: [{
-            header: String,
-            answer: String,
-            options: [String]
-        }]
     }],
     syllables: {
         count: Number,
@@ -23,8 +18,14 @@ const word = mongoose.model('word', {
     pronunciation: {
         all: String
     },
-    frequency: Number
+    frequency: Number,
     
+    
+    questions: [{
+        header: String,
+        answer: String,
+        options: [String]
+    }]
 })
 
 module.exports = word;

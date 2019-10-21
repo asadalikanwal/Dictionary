@@ -2,3 +2,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+input.ng-dirty.ng-invalid {
+  border-color: red
+}
+
+/* // "./node_modules/@angular/material/prebuilt-themes/purple-green.css", */

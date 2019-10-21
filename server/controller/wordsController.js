@@ -1,129 +1,157 @@
 const router = require('express').Router();
 const words = require('../models/words');
 const users = require('../models/users');
-const unirest = require('unirest');
-
+const uniRestGet = require('../_helpers/uniRest');
+// const unirest = require('unirest');
 
 router.get('/:vocabulary', async (req, res) => {
-    // newWord = new words()
 
+    console.log("1.0 ")
     //1- search within words collection
     let result = await localDbSearch(req, res);
-    console.log('after local db call ');
+    console.log("1.1 ")
 
+    console.log("2.0 ")
     // 2- fetch by calling wordsApi 
     if (!result) {
-        console.log('inside result ')
-        result = onlineWordApiSearch(req, res);
-    }
-    // //3- add to words collection
-    // addToWordsCollection(newWord);
+        console.log("2.1.0 ")
+        result = await onlineWordApiSearch(req, res);
+        console.log("2.1.1 ");
 
+        //3- add to words collection
+        if (result.word) {
+            const questions = await _addQuestions(req.params.vocabulary, result);
+            result.questions = questions;
+            // console.log("finalResult with question", result);
+
+            console.log("3.0.0 ")
+            await addToWordsCollection(req, res, result);
+            console.log("3.1.0 ")
+        }
+    }
+
+    console.log("4.0 ")
     // //4- add to users collection
-    // addToUsersCollectio();
+    _addToUsersCollection(req);
+    console.log("4.1 ")
 });
 
 //-------- Helpers ---------------------
 function localDbSearch(req, res) {
-    // words.findOne(
-    //     { vocabulary: req.params.vocabulary },
-    //     async (err, data) => {
-    //         if (!err) {
-    //             if (data) {
-    //                 console.log('the data is : ' + data);
-    //                 res.status(200).send({
-    //                     data // filter questions out!
-    //                 })
-    //             }
-    //             else {
-    //                 console.log('No Data found');
-    //                 //2- fetch by calling wordsApi 
-    //                 // onlineWordApiSearch(req, res, newWord);
-    //             }
-    //         } else {
-    //             console.log('the error is : ' + err);
-    //         }
-    //     });
+    console.log("1.0.1 ")
 
-    console.log('inside local db')
     return words.findOne({
-        vocabulary: req.params.vocabulary
+        word: req.params.vocabulary
     }, {
         questions: 0
     });
 }
 
-function onlineWordApiSearch(req, res) {
-    console.log('inside online search')
-
-    unirest.get("https://wordsapiv1.p.mashape.com/words/school")
-        .header("X-Mashape-Key", "651986f448msh2ef5123ec03b59fp134f2cjsn5ed9e3577d33")
-        .header("Accept", "application/json")
-        .end(function (result) {
-            console.log("RESULT: ", result.status, result.headers, result.body);
-        })
-        .catch(err => {
-            console.log(err)
-        });
-
-   
-    // /----------------------------------------------------------
-    // /----------------------------------------------------------
-    // need to return res
-    // fetch(
-    //     'https://wordsapiv1.p.mashape.com/words/' + req.params.vocabulary,
-    //     {
-    //         method: 'get',
-    //         mode: 'cors',
-    //         cache: "no-cache",
-    //         credentials: 'include',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             'client_id': '',
-    //             'client_secret': '',
-    //             'grand_type': 'client_credentials'
-    //         })
-    //     }
-    // ).then((data) => {
-    //     newWord.vocabulary = req.params.vocabulary;
-    //     for (const itr of data.results) {
-    //         newWord.definition = itr.definition;
-    //         newWord.partOfSpeach.push(itr.partOfSpeach);
-    //         newWord.synonyms.push(itr.synonyms);
-    //         newWord.typeOf.push(itr.typeOf);
-    //         newWord.hasTypes.push(itr.hasTypes);
-    //         newWord.derivation.push(itr.derivation);
-    //         newWord.example.push(itr.example);
-    //         //newWord.questions.push({});
-    //     }
-    //     newWord.syllables.count = data.results.syllables.count;
-    //     for (const itr of data.syllables.list) {
-    //         newWord.syllables.list.push(itr);
-    //     }
-    //     newWord.pronunciation.all = data.results.pronunciation;
-    //     newWord.frequency = data.frequency
-    // });
-
+async function onlineWordApiSearch(req, res) {
+    console.log("2.1.1 ")
+    return uniRestGet("https://wordsapiv1.p.mashape.com/words/" + req.params.vocabulary);
 }
 
-function addToWordsCollection(newWord) {
-    newWord.questions.push({});
-    words.insertMany(newWord);
-}
-
-function addToUsersCollectio(req, newWord) {
-    userWord = {
-        vocabulary: newWord.vocabulary,
-        priority: 10
-    };
-    users.findOne({
-        _id: req.body.id
+function addToWordsCollection(req, res, modifiedWord) {
+    const newWord = new words(modifiedWord);
+    newWord.save((err, docs) => {
+        if (!err) {
+            res.send(docs);
+        } else {
+            return next({
+                "message": "Problem to connect with DB"
+            })
+        }
     })
-    // to be completed
-    // get that user and add the word to his list @userWord
+}
+
+async function _addQuestions(word, obj) {
+
+    const rhymes = await uniRestGet(`https://wordsapiv1.p.mashape.com/words/${word}/rhymes`);
+
+    console.log("rhymessssss:", rhymes);
+    let allQuestions = [];
+    for (const item of obj.results) {
+        let question = {
+            header: item.definition,
+            answer: word,
+            options: await _get3Rhymes(rhymes.rhymes.all, word)
+        }
+        allQuestions.push(question);
+    }
+
+    return allQuestions;
+
+}
+
+async function _get3Rhymes(myArray, answer) {
+    console.log("-----------------------------------");
+    let rhymes = [];
+    let tempArray = [...myArray];
+    let count = 0;
+    if (myArray.length > 3) {
+        for (let index = 0; index <= 3; index++) {
+            
+            if(count == 3){
+                break;
+            }
+            console.log("tempArray.length", tempArray.length);
+            let arrayindex = Math.floor(Math.random() * Math.floor(tempArray.length - 1));
+            
+            if(tempArray[arrayindex] != answer){
+                count++;
+                console.log("ArrayIndex: "+ arrayindex);
+                console.log("Array String: "+ tempArray.toString());
+                const element = tempArray[arrayindex];
+                rhymes.push(element);
+            } 
+            tempArray.splice(arrayindex, 1);
+        }
+        // rhymes.push(answer);
+        // console.log("rhymes", rhymes);
+        // return rhymes;
+    } else {
+        const dbwords = await words.aggregate([{
+            $sample: {
+                size: 3
+            }
+        }])
+
+        dbwords.forEach(item => {
+            if (item.word) {
+                rhymes.push(item.word)
+            } else {
+                rhymes.push('potato');
+            }
+        })
+    }
+    rhymes.push(answer);
+    console.log("rhymes", rhymes);
+    return rhymes;
+    Í
+}
+
+function _addToUsersCollection(req) {
+
+    var conditions = {
+        _id: req.currentUser._id,
+        'words.name': {
+            $ne: req.params.vocabulary
+        }
+    };
+
+    var update = {
+        $addToSet: {
+            words: {
+                name: req.params.vocabulary,
+                priority: 10
+            }
+        }
+    }
+
+    users.findOneAndUpdate(conditions, update, function (err, doc) {
+        console.log("Word save in User's array list")
+    });
 }
 //--------------------------------------
 module.exports = router;
