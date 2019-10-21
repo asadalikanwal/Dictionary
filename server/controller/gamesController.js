@@ -6,7 +6,7 @@ router.post('/', (req, res, next) => {
     console.log("wroks");
     const newGame = new Game(req.body);
     newGame.save((err, docs) => {
-        if(!err) {
+        if (!err) {
             res.send(docs);
         } else {
             return next({
@@ -19,8 +19,14 @@ router.post('/', (req, res, next) => {
 // Update a game, Need game id as params
 router.post('/:gameid', (req, res, next) => {
     // const newGame = new Game(req.body);
-    Game.findOneAndUpdate({_id: req.params.gameid}, req.body, {new: true, upsert: true}, (err, doc) => {
-        if(!err) {
+    Game.findOneAndUpdate({
+        _id: req.params.gameid
+    }, {
+        $set: req.body
+    }, {
+        new: true
+    }, (err, doc) => {
+        if (!err) {
             res.send(doc);
         } else {
             return next({
@@ -41,8 +47,8 @@ router.post('/:gameid', (req, res, next) => {
 // To find a game by gameID
 router.get('/:gameid', (req, res, next) => {
     Game.findById(req.params.gameid, (err, doc) => {
-        if(!err) {
-            if(doc){
+        if (!err) {
+            if (doc) {
                 res.send(doc);
             } else {
                 next({
