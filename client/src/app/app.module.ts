@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponentComponent } from './register/register-component.component';
+import { RegisterComponentComponent } from './register/register.component';
 import { NotificationComponentComponent } from './notification-component';
 import { AuthGuard } from './_helpers/auth.guard';
 import { HttpRequestInterceptor } from './_helpers/basic-auth.interceptor';
