@@ -51,20 +51,30 @@ router.get("/:email", (req, res, next) => {
     );
 });
 //to register new member
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(req.body.password, salt);
 
-    const user = User.findOne({
+    const user = await User.findOne({
         email: req.body.email
     });
-    if (!user) {
-        res.json("this email has been used");
+
+    console.log("User", user)
+
+    if(!req.body.fullName){
+        res.send({
+            result: "Please provide full name"
+        });
+    } else if (user) {
+        res.send({
+            result: "this email has been used"
+        });
     } else {
         const newUser = new User({
             email: req.body.email,
             password: hash,
             isActive: 2,
+            fullName: req.body.fullName,
             quizFrequency: 0
         });
 

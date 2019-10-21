@@ -28,6 +28,9 @@ export class RegisterComponent implements OnInit {
       ],
         [this.asyncEmailValidator.bind(this)]
       ],
+      'fullName': ['', [
+        Validators.required,
+      ]],
       'password': ['', [
         Validators.required,
       ]]

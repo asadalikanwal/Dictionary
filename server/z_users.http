@@ -17,7 +17,8 @@ Content-Type: application/json
 
 {
      "email": "tahmed@mum.edu",
-    "password": "123456"
+    "password": "123456",
+     "fullName": "Tarik Ahmed"
 }
 ###
 
