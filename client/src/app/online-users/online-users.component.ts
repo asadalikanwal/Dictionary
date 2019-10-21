@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../_service/user.service';
 
 @Component({
   selector: 'online-users',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnlineUsersComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getAllActiveUsers().subscribe(data => {
+      if(data) {
+        console.log("ACtive User", data)
+      }
+    }, (err) => {
+      console.log("No Active user", err);
+      // this.toastr.error('Invalid username or password', 'Error');
+    });
   }
 
 }

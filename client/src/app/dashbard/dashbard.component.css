@@ -20,11 +20,30 @@
   text-align: center;
 }
 
-.full-width { width: 100%;}
+.full-width {
+  width: 100%;
+}
 
 
-.online-users-block{ background-color: #333; padding: 20px;}
-.search-block .mat-figure, .mat-grid-tile .mat-figure {align-items: flex-start !important;} 
+.online-users-block {
+  background-color: #fff;
+  padding: 20px;
+  border-left: 1px solid #e2e2e2;
+}
+
+.user-inside-grid  {
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 20px;
+  bottom: 0;
+}
+
+.search-block .mat-figure,
+.mat-grid-tile .mat-figure {
+  align-items: flex-start !important;
+}
+
 .text-inside-grid {
   position: absolute;
   left: 0;
