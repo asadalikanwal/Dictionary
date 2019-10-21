@@ -23,6 +23,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ToastrModule } from 'ngx-toastr';
 import { MatInputModule } from '@angular/material';
+import { SearchComponent } from './search/search.component';
+import { OnlineUsersComponent } from './online-users/online-users.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { MatInputModule } from '@angular/material';
     RegisterComponent,
     LoginComponent,
     DashbardComponent,
+    SearchComponent,
+    OnlineUsersComponent,
   ],
   imports: [
     BrowserModule,

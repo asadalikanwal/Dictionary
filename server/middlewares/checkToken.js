@@ -2,7 +2,7 @@
 const checkToken = (req, res, next) => {
 
     const header = req.cookies.access_token;
-
+    console.log("checking...")
     if (typeof header !== 'undefined') {
         //     const bearer = header.split(' ');
         //     const token = bearer[1];

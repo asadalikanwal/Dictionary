@@ -14,7 +14,7 @@ import { UserService } from './_service/user.service';
             <a [routerLink]="['register']" class="white-link">Register</a> |
             <a [routerLink]="['login']" class="white-link">Login</a>
         </span>
-        <ng-template #elseBlock><span>Welcome to Dashboard</span></ng-template>
+        <ng-template #elseBlock><span><a [routerLink]="['login']" class="white-link">Logout</a></span></ng-template>
 
     </mat-toolbar>
     <router-outlet></router-outlet>

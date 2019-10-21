@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UserService {
     return localStorage.getItem('currentUser');
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,  private router: Router,) {
     this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUser'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -50,6 +51,7 @@ export class UserService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    // this.router.navigate(['/login']);
   }
 
   checkUser(obj: object) {
