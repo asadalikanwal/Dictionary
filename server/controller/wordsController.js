@@ -9,7 +9,7 @@ router.get('/:vocabulary', async (req, res) => {
     console.log("1.0 ")
     //1- search within words collection
     let result = await localDbSearch(req, res);
-    console.log("1.1 ")
+    console.log("1.1 ", result);
 
     console.log("2.0 ")
     // 2- fetch by calling wordsApi 
@@ -44,6 +44,14 @@ function localDbSearch(req, res) {
         word: req.params.vocabulary
     }, {
         questions: 0
+    }, (err, docs) => {
+        if (!err) {
+            res.send(docs);
+        } else {
+            return next({
+                "message": "Problem to connect with DB"
+            })
+        }
     });
 }
 
