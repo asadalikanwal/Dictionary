@@ -4,7 +4,7 @@ const word = mongoose.model('word', {
     vocabulary: String,
     definitions: [{
         definition: String,
-        partOfSpeach: String,
+        partOfSpeech: String,
         synonyms: [String],
         typeOf: [String],
         hasTypes: [String],
@@ -24,6 +24,7 @@ const word = mongoose.model('word', {
         all: String
     },
     frequency: Number
+    
 })
 
 module.exports = word;
