@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
+  vocab:string;
+  pronunciation:string
   constructor() { }
 
   ngOnInit() {

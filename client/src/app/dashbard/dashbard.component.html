@@ -11,11 +11,13 @@
 
         </form> -->
 
-  <mat-grid-list cols="3" rowHeight="2:1">
-    <mat-grid-tile style="background-color: darkslategrey;" colspan="2">
-      <search></search>
+  <mat-grid-list cols="3">
+    <mat-grid-tile class="search-block" colspan="2">
+      <div class="text-inside-grid">
+        <search></search>
+      </div>
     </mat-grid-tile>
-    <mat-grid-tile style="background-color: antiquewhite;">
+    <mat-grid-tile class="online-users-block">
       <online-users></online-users>
     </mat-grid-tile>
   </mat-grid-list>

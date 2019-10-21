@@ -22,3 +22,13 @@
 
 .full-width { width: 100%;}
 
+
+.online-users-block{ background-color: #333; padding: 20px;}
+.search-block .mat-figure, .mat-grid-tile .mat-figure {align-items: flex-start !important;} 
+.text-inside-grid {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 20px;
+  bottom: 0;
+}
