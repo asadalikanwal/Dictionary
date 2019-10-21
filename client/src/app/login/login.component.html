@@ -7,15 +7,22 @@
   </div>
 
   <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-      placeholder="Enter email" formControlName="email">
+    <!-- <label for="exampleInputEmail1">Email address</label> -->
+    <!-- <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" -->
+    <!-- placeholder="Enter email" formControlName="email"> -->
+    <mat-form-field class="full-width" floatLabel="always">
+      <input matInput placeholder="email" formControlName="email">
+    </mat-form-field>
+
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
+    <!-- <label for="exampleInputPassword1">Password</label>
     <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password"
-      formControlName="password">
+      formControlName="password"> -->
+    <mat-form-field class="full-width" floatLabel="always">
+      <input matInput placeholder="Password" formControlName="password">
+    </mat-form-field>
   </div>
 
   <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!myForm.valid">Login</button>

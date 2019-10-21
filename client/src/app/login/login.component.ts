@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   myForm: FormGroup
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService,  private toastr: ToastrService, private router: Router) {
+    this.userService.logout();
     this.myForm = formBuilder.group({
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', [Validators.required]]
@@ -35,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
 
