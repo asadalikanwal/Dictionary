@@ -1,7 +1,5 @@
 <h2>Online Users</h2>
 
 <ul>
-  <li>Tarik Ahmed</li>
-  <li>Mohammad Moharram</li>
-  <li>Asad Ali Kanwal Kanlwa ali asad</li>
+  <li *ngFor="let user of users">{{user.email}}</li>
 </ul>
