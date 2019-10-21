@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const word = mongoose.model('word', {
-    vocabulary: String,
-    definitions: [{
+    word: String,
+    results: [{
         definition: String,
         partOfSpeach: String,
         synonyms: [String],
