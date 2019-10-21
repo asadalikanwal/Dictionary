@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.use('/api/users', checkToken, verifyToken, usersController);
+app.use('/api/users', usersController);
 app.use('/api/games', checkToken, verifyToken, gamesController);
 app.use('/api/search', checkToken, verifyToken, wordsController);
 

@@ -1,32 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { HttpClient } from '@angular/common/http';
+import { UserService } from '../_service/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'login',
-  template: `
-    <form [formGroup]='loginForm' (onSubmit)="onSubmit()">
-      <div>
-        <label>Email: </label>
-        <input type="email" placeholder="examle@examle.com" formControlName = 'email'>
-      </div>
-    </form>
-  `,
-  styles: []
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.loginForm = fb.group({
-      'email': ['', Validators.compose([Validators.required, Validators.email])],
-      'password': ['', Validators.required]
+  myForm: FormGroup
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService,  private toastr: ToastrService, private router: Router) {
+    this.myForm = formBuilder.group({
+      'email': ['', [Validators.required, Validators.email]],
+      'password': ['', [Validators.required]]
     })
   }
-  onSubmit(){
 
+  onSubmit() {
+    console.log("submit");
+    this.userService.checkUser(this.myForm.value).subscribe(data => {
+      if(data) {
+        this.userService.setCurrentUser =  data.token;
+        console.log(data)
+        this.toastr.success('Welcome to dashboard', 'Success');
+        this.router.navigate(['/dashboard'])
+      }
+    }, (err) => {
+      this.userService.setCurrentUser =  '';
+      this.toastr.error('Invalid username or password', 'Error');
+    });
   }
+
   ngOnInit() {
   }
+
+
 
 }

@@ -30,10 +30,15 @@ router.get("/:email", (req, res, next) => {
     User.findOne({
             email: req.params.email
         },
+        {
+            password: 0
+        },
         (err, doc) => {
             if (!err) {
                 if (doc) {
-                    res.json(doc);
+                    res.send({
+                        result: true
+                    });
                 } else {
                     res.send({
                         result: false
@@ -65,7 +70,9 @@ router.post("/", (req, res, next) => {
 
         newUser.save((err, docs) => {
             if (!err) {
-                res.send(docs);
+                res.send({
+                    result: true
+                });
             } else {
                 return next("Error: Users not saved");
             }
