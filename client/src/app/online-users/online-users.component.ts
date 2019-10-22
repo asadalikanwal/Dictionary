@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../_service/user.service';
-import{map} from 'rxjs/operators'
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'online-users',
@@ -8,11 +8,11 @@ import{map} from 'rxjs/operators'
   styleUrls: ['./online-users.component.css']
 })
 export class OnlineUsersComponent implements OnInit {
-users: [any];
-  constructor(private userService: UserService) { 
+  users;
+  constructor(private userService: UserService) {
     console.log("constructor");
     this.userService.getAllActiveUsers().subscribe(data => {
-      if(data) {
+      if (data) {
         console.log("ACtive User", data);
         this.users = data;
       }
@@ -20,7 +20,7 @@ users: [any];
       console.log("No Active user", err);
       // this.toastr.error('Invalid username or password', 'Error');
     });
-    
+
   }
 
   ngOnInit() {
