@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserService {
     return localStorage.getItem('currentUser');
   }
 
-  constructor(private http: HttpClient,  private router: Router,) {
+  constructor(private http: HttpClient, private router: Router, private jwtHelper: JwtHelperService) {
     this.currentUserSubject = new BehaviorSubject<any>(localStorage.getItem('currentUser'));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -49,8 +50,18 @@ export class UserService {
 
   logout() {
     // remove user from local storage and set current user to null
+
+    console.log("this.getCurrentUser", this.getCurrentUser);
+    const userData = this.jwtHelper.decodeToken(this.getCurrentUser);
+    console.log("JWT HELPER", userData); // token
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    if (userData) {
+      console.log("INSIDE");
+      this.http.put(`https://localhost:3000/api/users/logout`, { id: userData._id }).subscribe(data => {
+        console.log("logout");
+      })
+    }
     // this.router.navigate(['/login']);
   }
 

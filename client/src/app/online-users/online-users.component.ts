@@ -8,8 +8,8 @@ import{map} from 'rxjs/operators'
   styleUrls: ['./online-users.component.css']
 })
 export class OnlineUsersComponent implements OnInit {
-users: [any];
-  constructor(private userService: UserService) { 
+users;
+  constructor(private userService: UserService) {
     console.log("constructor");
     this.userService.getAllActiveUsers().subscribe(data => {
       if(data) {
@@ -20,7 +20,7 @@ users: [any];
       console.log("No Active user", err);
       // this.toastr.error('Invalid username or password', 'Error');
     });
-    
+
   }
 
   ngOnInit() {
