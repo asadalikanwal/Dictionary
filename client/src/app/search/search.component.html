@@ -1,47 +1,49 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSearch()" >
 <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username"
-        aria-describedby="button-addon2">
+    <input type="text" class="form-control" placeholder="Search for a word" aria-label="Recipient's username"
+        aria-describedby="button-addon2" formControlName='vocab'>
     <div class="input-group-append">
-        <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+        <button class="btn btn-primary" type="submit" id="btnSearch">Search</button>
     </div>
 </div>
 
-<h1>School</h1>
-<em>/sko͞ol/</em>
+<!-- <h1>School</h1>
+<em>/sko͞ol/</em> -->
+<h1>{{vocab}}</h1>
+<em>{{pronunciation}}</em>
 
 <ol class="defination">
-    <li>
-        an institution for educating children.
+    <li *ngFor="let d of definitionList">
+        {{d.definition}}
+        <div>
+            <ul>
+                <li *ngFor="let e of d.example">
+                    {{e}}>
+                </li>
+            </ul>
+        </div>
+        <div class="similar">
+            <span class="badge badge-light">Similar: </span>
+            <span *ngFor="let s of d.synonyms" class="badge badge-primary">{{s}}</span>
+        </div>
+    </li>
+
+    <!-- <li>
+        any institution at which instruction is given in a particular discipline.
 
         <div class="similar">
+            <span class="badge badge-light">Similar: </span>
             <span class="badge badge-primary">Primary</span>
             <span class="badge badge-secondary">Secondary</span>
             <span class="badge badge-success">Success</span>
             <span class="badge badge-danger">Danger</span>
             <span class="badge badge-warning">Warning</span>
             <span class="badge badge-info">Info</span>
-            <span class="badge badge-light">Light</span>
             <span class="badge badge-dark">Dark</span>
         </div>
-    </li>
-
-    <li>
-        any institution at which instruction is given in a particular discipline.
-
-        <div class="similar">
-            <span class="badge badge-light">Similar: </span>
-            <span class="badge badge-primary">Primary</span>
-            <!-- <span class="badge badge-secondary">Secondary</span>
-            <span class="badge badge-success">Success</span>
-            <span class="badge badge-danger">Danger</span>
-            <span class="badge badge-warning">Warning</span>
-            <span class="badge badge-info">Info</span>
-
-            <span class="badge badge-dark">Dark</span> -->
-        </div>
-    </li>
+    </li> -->
 </ol>
 
-<H1>{{vocab}}</H1>
-<em>{{pronunciation}}</em>
+
 <!-- <definition *ngFor=""></definition> -->
+</form>

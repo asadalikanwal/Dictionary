@@ -46,7 +46,8 @@ function localDbSearch(req, res) {
         questions: 0
     }, (err, docs) => {
         if (!err) {
-            res.send(docs);
+            if (docs)
+                res.send(docs);
         } else {
             return next({
                 "message": "Problem to connect with DB"
@@ -99,20 +100,20 @@ async function _get3Rhymes(myArray, answer) {
     let count = 0;
     if (myArray.length > 3) {
         for (let index = 0; index <= 3; index++) {
-            
-            if(count == 3){
+
+            if (count == 3) {
                 break;
             }
             console.log("tempArray.length", tempArray.length);
             let arrayindex = Math.floor(Math.random() * Math.floor(tempArray.length - 1));
-            
-            if(tempArray[arrayindex] != answer){
+
+            if (tempArray[arrayindex] != answer) {
                 count++;
-                console.log("ArrayIndex: "+ arrayindex);
-                console.log("Array String: "+ tempArray.toString());
+                console.log("ArrayIndex: " + arrayindex);
+                console.log("Array String: " + tempArray.toString());
                 const element = tempArray[arrayindex];
                 rhymes.push(element);
-            } 
+            }
             tempArray.splice(arrayindex, 1);
         }
         // rhymes.push(answer);
