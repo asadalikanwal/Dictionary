@@ -8,9 +8,10 @@ const {
 
 //to get all the active users
 router.get("/", async (req, res, next) => {
-    User.find((err, docs) => {
+    User.find({isActive: 1},(err, docs) => {
         if (!err) {
-            if (docs.isActive === 1) {
+            console.log("docs", docs);
+            if (docs) {
                 res.send(docs);
             } else {
                 return res.status(404).send({
@@ -19,7 +20,7 @@ router.get("/", async (req, res, next) => {
             }
         } else {
             return next({
-                "Error": "Something went wrong"
+                "Error": "Problem with DB connection"
             });
         }
     });

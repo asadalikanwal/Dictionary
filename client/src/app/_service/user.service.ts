@@ -34,7 +34,7 @@ export class UserService {
     return this.http.post<{ result: boolean }>(`https://localhost:3000/api/users`, obj);
   }
 
-  getAllUsers() {
+  getAllActiveUsers() {
     return this.http.get(`https://localhost:3000/api/users`);
   }
 

@@ -1,0 +1,23 @@
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #e2e2e2;
+  position: relative;
+}
+
+ul li:before {
+  content: "\2022";
+    color: green;
+    font-weight: bold;
+    display: inline-block;
+    font-size: 37px;
+    position: absolute;
+    right: 0px;
+    top: -5px;
+    height: 10px;
+}
+
