@@ -10,8 +10,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class SearchComponent {
   searchForm: FormGroup;
-  // @Output() search
-  // result: any;
+  word;
   vocab: string;
   pronunciation: string;
   definitionList: any;
@@ -27,11 +26,17 @@ export class SearchComponent {
     const searchWord = this.searchForm.value;
     console.log(searchWord);
     this.searchSvc.search(this.searchForm.value)
-      .subscribe(data => {
-        console.log('inside subscribe: ', data);
-        // this.vocab = data.word;
-        // this.pronunciation = this.result.pronunciation;
-        // this.definitionList = this.result.results;
+      .subscribe(res => {
+        console.log('inside subscribe: ', res);
+        if (res) {
+          this.word = res;
+
+          this.vocab = this.word.word;
+          this.pronunciation = this.word.pronunciation.all;
+          this.definitionList = this.word.results
+        }
+      }, (err) => {
+        console.log("No results ..!")
       })
 
 
