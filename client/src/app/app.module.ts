@@ -27,6 +27,8 @@ import { SearchComponent } from './search/search.component';
 import { OnlineUsersComponent } from './online-users/online-users.component';
 import { JwtModule } from "@auth0/angular-jwt";
 import { WordListComponent } from './word-list/word-list.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MyDialogComponent } from './my-dialog/my-dialog.component';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { WordListComponent } from './word-list/word-list.component';
     SearchComponent,
     OnlineUsersComponent,
     WordListComponent,
+    MyDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { WordListComponent } from './word-list/word-list.component';
         },
         skipWhenExpired: true
       }
-    })
+    }),
+    MatDialogModule
   ],
   providers: [
     {
@@ -74,6 +78,7 @@ import { WordListComponent } from './word-list/word-list.component';
     },
     { provide: MAT_LABEL_GLOBAL_OPTIONS, useValue: { float: 'always' } }
   ],
+  entryComponents: [MyDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

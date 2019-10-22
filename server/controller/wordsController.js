@@ -36,7 +36,11 @@ router.get('/:vocabulary', async (req, res) => {
     if (!result) {
         console.log("2.1.0 ")
         result = await onlineWordApiSearch(req, res);
-        console.log("2.1.1 ");
+        console.log("2.1.1 ", result);
+
+        if(!result.success){
+            return res.send(result);
+        }
 
         //3- add to words collection
         if (result.word) {

@@ -1,35 +1,42 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search for a word" aria-label="Recipient's username"
-            aria-describedby="button-addon2" formControlName='vocab'>
-        <div class="input-group-append">
-            <button class="btn btn-primary" type="submit" id="btnSearch">Search</button>
-        </div>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Search for a word" aria-label="Recipient's username"
+      aria-describedby="button-addon2" formControlName='vocab'>
+    <div class="input-group-append">
+      <button class="btn btn-primary" [disabled]="!searchForm.valid" type="submit" id="btnSearch">Search</button>
     </div>
-
+  </div>
+  <div *ngIf="loading">
+    Loading...
+  </div>
+  <div *ngIf="resultFound; else elseBlock">
     <h1>{{vocab}}</h1>
     <em>{{pronunciation}}</em>
-
     <ol class="defination">
-        <li *ngFor="let d of definitionList">
-            {{d.definition}}
-            <div>
-                <ul>
-                    <li *ngFor="let e of d.example">
-                        {{e}}
-                    </li>
-                </ul>
-            </div>
-            <div class="similar" *ngIf="d.synonyms.length > 0; else elsebBlock">
-                <span class="badge badge-light">Similar: </span>
-                <span *ngFor="let s of d.synonyms" class="badge badge-warning">{{s}}</span>
-            </div>
-            <ng-template #elsebBlock>
-                <div class="similar">
-                    <span class="badge badge-light">Part of Speech: </span>
-                    <span class="badge badge-info">{{d.partOfSpeech}}</span>
-                </div>
-            </ng-template>
-        </li>
+      <li *ngFor="let d of definitionList">
+        {{d.definition}}
+        <div>
+          <ul>
+            <li *ngFor="let e of d.example">
+              {{e}}
+            </li>
+          </ul>
+        </div>
+        <div class="similar" *ngIf="d.synonyms; else elsebBlock">
+          <span class="badge badge-light">Similar: </span>
+          <span *ngFor="let s of d.synonyms" class="badge badge-warning">{{s}}</span>
+        </div>
+        <ng-template #elsebBlock>
+          <div class="similar">
+            <span class="badge badge-light">Part of Speech: </span>
+            <span class="badge badge-info">{{d.partOfSpeech}}</span>
+          </div>
+        </ng-template>
+      </li>
     </ol>
+  </div>
+  <ng-template #elseBlock>
+    <div class="noresult">Sorry, no result</div>
+  </ng-template>
+
 </form>

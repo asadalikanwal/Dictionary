@@ -1,7 +1,7 @@
 <h2>Searched words</h2>
 
-<ul *ngIf="words.length > 0; else elseBlock">
-  <li *ngFor="let word of words.slice().reverse()">
+<ul *ngIf="words.length; else elseBlock">
+  <li *ngFor="let word of words.slice().reverse()" (click)="openDialog(word.name)">
     <span>{{word.name}}</span>
   </li>
 </ul>

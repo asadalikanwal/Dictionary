@@ -1,0 +1,31 @@
+<div mat-dialog-title>
+  <h1>{{data.word}}</h1>
+    <em>{{data.pronunciation.all}}</em>
+</div>
+<div mat-dialog-content>
+  <br>
+
+
+  <ol class="defination">
+    <li *ngFor="let d of data.results">
+      {{d.definition}}
+      <div>
+        <ul>
+          <li *ngFor="let e of d.example">
+            {{e}}
+          </li>
+        </ul>
+      </div>
+      <div class="similar" *ngIf="d.synonyms.length > 0; else elsebBlock">
+        <span class="badge badge-light">Similar: </span>
+        <span *ngFor="let s of d.synonyms" class="badge badge-warning">{{s}}</span>
+      </div>
+      <ng-template #elsebBlock>
+        <div class="similar">
+          <span class="badge badge-light">Part of Speech: </span>
+          <span class="badge badge-info">{{d.partOfSpeech}}</span>
+        </div>
+      </ng-template>
+    </li>
+  </ol>
+</div>

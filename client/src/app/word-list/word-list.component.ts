@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../_service/search.service';
+import { MatDialog } from '@angular/material';
+import { MyDialogComponent } from '../my-dialog/my-dialog.component';
 
 @Component({
   selector: 'word-list',
@@ -7,8 +9,8 @@ import { SearchService } from '../_service/search.service';
   styleUrls: ['./word-list.component.css']
 })
 export class WordListComponent implements OnInit {
-  words
-  constructor(private searchService: SearchService) {
+  words = [];
+  constructor(private searchService: SearchService, public dialog: MatDialog) {
     this.searchService.getAllWords().subscribe(data => {
       if (data) {
         console.log("All words", data);
@@ -25,6 +27,31 @@ export class WordListComponent implements OnInit {
       name: word,
       priority: 10
     })
+  }
+
+  search(word){
+    console.log(word);
+    this.searchService.search({vocab: word});
+  }
+
+  openDialog(word): void {
+    this.searchService.search({vocab: word}).subscribe(data => {
+      if (data) {
+        console.log("All words", data);
+        const dialogRef = this.dialog.open(MyDialogComponent, {
+          data: data
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          // this.animal = result;
+        });
+      }
+    }, (err) => {
+      console.log("No words for this user", err);
+      // this.toastr.error('Invalid username or password', 'Error');
+    });
+
   }
 
   ngOnInit() {
