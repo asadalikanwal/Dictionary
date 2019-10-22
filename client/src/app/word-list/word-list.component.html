@@ -1,0 +1,8 @@
+<h2>Searched words</h2>
+
+<ul *ngIf="words.length > 0; else elseBlock">
+  <li *ngFor="let word of words.slice().reverse()">
+    <span>{{word.name}}</span>
+  </li>
+</ul>
+<ng-template #elseBlock><span class="nowords">No words searched</span></ng-template>

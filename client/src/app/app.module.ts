@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material';
 import { SearchComponent } from './search/search.component';
 import { OnlineUsersComponent } from './online-users/online-users.component';
 import { JwtModule } from "@auth0/angular-jwt";
+import { WordListComponent } from './word-list/word-list.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { JwtModule } from "@auth0/angular-jwt";
     DashbardComponent,
     SearchComponent,
     OnlineUsersComponent,
+    WordListComponent,
   ],
   imports: [
     BrowserModule,

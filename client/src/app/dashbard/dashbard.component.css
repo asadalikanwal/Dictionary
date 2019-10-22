@@ -31,12 +31,27 @@
   border-left: 1px solid #e2e2e2;
 }
 
-.user-inside-grid  {
+
+.word-inside-grid  {
   position: absolute;
   right: 0;
   top: 0;
   left: 20px;
   bottom: 0;
+  /* background: red; */
+  /* overflow-y: scroll; */
+  /* height: calc(100% + 50px); */
+  /* height: calc(50vh - 90px) */
+}
+.user-inside-grid  {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  left: 20px;
+  bottom: 0;
+  /* background: blue; */
+  /* overflow-y: scroll; */
+  /* height: calc(50vh - 90px) */
 }
 
 .mat-grid-tile{

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { SearchService } from '../_service/search.service'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -14,8 +14,11 @@ export class SearchComponent {
   vocab: string;
   pronunciation: string;
   definitionList: any;
+  @Output() emitMessage = new EventEmitter();
+
 
   constructor(private fb: FormBuilder, private searchSvc: SearchService) {
+
     this.searchForm = fb.group({
       'vocab': ['', [Validators.required]]
     })
@@ -34,6 +37,11 @@ export class SearchComponent {
           this.vocab = this.word.word;
           this.pronunciation = this.word.pronunciation.all;
           this.definitionList = this.word.results
+          this.emitMessage.emit(this.searchForm.value);
+          this.searchSvc.wordAdded.next({
+            name: this.searchForm.value.vocab,
+            priority: 10
+          });
         }
       }, (err) => {
         console.log("No results ..!")

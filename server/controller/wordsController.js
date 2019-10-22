@@ -4,6 +4,26 @@ const users = require('../models/users');
 const uniRestGet = require('../_helpers/uniRest');
 // const unirest = require('unirest');
 
+router.get('/', async (req, res, next) => {
+    return users.findOne({
+        _id: req.currentUser._id
+    }, {
+        words: 1
+    }, (err, docs) => {
+        if (!err) {
+            if (docs)
+                res.send(docs);
+        } else {
+            return next({
+                "message": "Problem to connect with DB"
+            })
+        }
+    });
+   
+});
+
+
+
 router.get('/:vocabulary', async (req, res) => {
 
     console.log("1.0 ")

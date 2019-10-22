@@ -5,3 +5,5 @@ Cookie:access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFjYjhhYjA
 
 
 ###
+GET https://localhost:3000/api/search/ HTTP/1.1
+Cookie:access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZGFhMzVhZmI1MWZmODVlOTJlNjhmYTIiLCJlbWFpbCI6ImFha2Fud2FsQG11bS5lZHUiLCJpYXQiOjE1NzE3NTk4NjUsImV4cCI6MTU3MTc2MzQ2NX0.DKQXlpCtIEsQSmRdpYim1iZDW0zebwqDlQcdtQ_mRTY; Max-Age=86400; Path=/; Expires=Wed, 23 Oct 2019 15:57:45 GMT; HttpOnly

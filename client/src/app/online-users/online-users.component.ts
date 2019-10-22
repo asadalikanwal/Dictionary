@@ -10,7 +10,6 @@ import { map } from 'rxjs/operators'
 export class OnlineUsersComponent implements OnInit {
   users;
   constructor(private userService: UserService) {
-    console.log("constructor");
     this.userService.getAllActiveUsers().subscribe(data => {
       if (data) {
         console.log("ACtive User", data);

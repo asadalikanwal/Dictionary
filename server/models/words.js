@@ -19,8 +19,6 @@ const word = mongoose.model('word', {
         all: String
     },
     frequency: Number,
-    
-    
     questions: [{
         header: String,
         answer: String,
