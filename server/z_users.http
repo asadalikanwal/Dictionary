@@ -24,10 +24,24 @@ Content-Type: application/json
 
 #To deactivate user - by making isActive: 0 
 DELETE https://localhost:3000/api/users/asadalikanwal@mum.edu HTTP/1.1
+
 ###
 PUT https://localhost:3000/api/users HTTP/1.1
 Content-Type: application/json
 
 {
     "email":"tahmed@mum.edu"
+}
+
+
+
+###
+
+
+# logout
+PUT https://localhost:3000/api/users/logout HTTP/1.1
+Content-Type: application/json
+
+{
+    "id" : "5daa35afb51ff85e92e68fa2"
 }

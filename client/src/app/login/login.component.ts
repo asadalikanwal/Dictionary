@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserService } from '../_service/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'login',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   myForm: FormGroup
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService,  private toastr: ToastrService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private userService: UserService,  private toastr: ToastrService, private router: Router, private jwtHelper: JwtHelperService) {
     this.userService.logout();
     this.myForm = formBuilder.group({
       'email': ['', [Validators.required, Validators.email]],

@@ -1,5 +1,8 @@
 <h2>Online Users</h2>
 
 <ul>
-  <li *ngFor="let user of users">{{user.fullName}}</li>
+  <li *ngFor="let user of users">
+    <span *ngIf="user.fullName; else elseBlock">{{user.fullName}}</span>
+    <ng-template #elseBlock><span>{{user.email}}</span></ng-template>
+  </li>
 </ul>

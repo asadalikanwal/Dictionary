@@ -39,6 +39,10 @@
   bottom: 0;
 }
 
+.mat-grid-tile{
+  min-height: calc(100vh - 150px);
+}
+
 .search-block .mat-figure,
 .mat-grid-tile .mat-figure {
   align-items: flex-start !important;

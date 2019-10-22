@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './_service/user.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
     selector: 'app-root',
@@ -14,7 +15,7 @@ import { UserService } from './_service/user.service';
             <a [routerLink]="['register']" class="white-link">Register</a> |
             <a [routerLink]="['login']" class="white-link">Login</a>
         </span>
-        <ng-template #elseBlock><span><a [routerLink]="['login']" class="white-link">Logout</a></span></ng-template>
+        <ng-template #elseBlock><span><a [routerLink]="['login']" (click)="logout()" class="white-link">Logout</a></span></ng-template>
 
     </mat-toolbar>
     <router-outlet></router-outlet>
@@ -26,5 +27,10 @@ import { UserService } from './_service/user.service';
 } `]
 })
 export class AppComponent {
-    constructor(public userService: UserService) { }
+    constructor(public userService: UserService, private jwtHelper: JwtHelperService) { }
+    logout(){
+
+      console.log("Logout");
+      // this.userService.logout()
+    }
 }

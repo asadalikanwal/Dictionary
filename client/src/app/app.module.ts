@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { MatInputModule } from '@angular/material';
 import { SearchComponent } from './search/search.component';
 import { OnlineUsersComponent } from './online-users/online-users.component';
+import { JwtModule } from "@auth0/angular-jwt";
 
 
 @NgModule({
@@ -53,7 +54,15 @@ import { OnlineUsersComponent } from './online-users/online-users.component';
     LayoutModule,
     MatToolbarModule,
     MatInputModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("access_token");
+        },
+        skipWhenExpired: true
+      }
+    })
   ],
   providers: [
     {

@@ -1,13 +1,25 @@
-  em {    margin-top: -14px;
+  em {
+    margin-top: -14px;
     display: block;
-    margin-bottom: 7px;}
+    margin-bottom: 7px;
+  }
 
-    ol {
-      margin: 0;
-      padding-left: 24px;
-    }
+  ol {
+    margin: 0;
+    padding-left: 24px;
+    overflow-y: scroll;
+    height: calc(100vh - 100px);
+  }
 
-  ol.defination li { border-bottom: 1px solid #e2e2e2;
-    padding: 20px 0;}
+  ol.defination li {
+    border-bottom: 1px solid #e2e2e2;
+    padding: 20px 0;
+  }
 
-    span {margin: 3px;}
+  ol.defination li:last-child {
+    border-bottom: none;
+  }
+
+  span {
+    margin: 3px;
+  }
