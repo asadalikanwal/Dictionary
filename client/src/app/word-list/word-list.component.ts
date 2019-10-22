@@ -22,20 +22,21 @@ export class WordListComponent implements OnInit {
     });
   }
 
-  addWord(word){
+  addWord(word) {
+
     this.words.push({
       name: word,
       priority: 10
     })
   }
 
-  search(word){
+  search(word) {
     console.log(word);
-    this.searchService.search({vocab: word});
+    this.searchService.search({ vocab: word });
   }
 
   openDialog(word): void {
-    this.searchService.search({vocab: word}).subscribe(data => {
+    this.searchService.search({ vocab: word }).subscribe(data => {
       if (data) {
         console.log("All words", data);
         const dialogRef = this.dialog.open(MyDialogComponent, {
@@ -55,9 +56,20 @@ export class WordListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.searchService.wordAdded.subscribe((data) => {
-      this.words.push(data);
-     });
+    this.searchService.wordAdded.subscribe((data: { name: string, priority: number }) => {
+      let found = false;
+      this.words.forEach(element => {
+        console.log(element.name);
+        console.log(data.name);
+        if (element.name == data.name) {
+          found = true;
+        }
+      });
+
+      if (!found) {
+        this.words.push(data);
+      }
+    });
   }
 
 }

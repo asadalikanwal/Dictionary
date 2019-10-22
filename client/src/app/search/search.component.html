@@ -22,12 +22,12 @@
             </li>
           </ul>
         </div>
-        <div class="similar" *ngIf="d.synonyms; else elsebBlock">
+        <div class="similar" *ngIf="d.synonyms && d.synonyms.length; else elsebBlock">
           <span class="badge badge-light">Similar: </span>
           <span *ngFor="let s of d.synonyms" class="badge badge-warning">{{s}}</span>
         </div>
         <ng-template #elsebBlock>
-          <div class="similar">
+          <div class="similar" *ngIf="d.partOfSpeech">
             <span class="badge badge-light">Part of Speech: </span>
             <span class="badge badge-info">{{d.partOfSpeech}}</span>
           </div>
